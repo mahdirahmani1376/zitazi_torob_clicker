@@ -1,0 +1,8 @@
+logs/
+output
+project_exe/auto_clicker/logs/
+.idea
+.env
+project_exe/auto_clicker/auto_clicker.exe
+project_exe/auto_clicker/source/source.xlsx
+.idea/
