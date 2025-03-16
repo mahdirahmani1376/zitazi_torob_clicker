@@ -37,8 +37,8 @@ conn = mysql.connector.connect(
     database="zitazi",
     unix_socket="/var/run/mysqld/mysqld.sock"  # Adjust this path if needed
 )
+df = pd.read_sql('SELECT * FROM torob_products where clickable = 1', conn)
 sys.exit()
-df = pd.read_sql('SELECT * FROM torob_products where clickable = 1', engine)
 
 
 ########################
