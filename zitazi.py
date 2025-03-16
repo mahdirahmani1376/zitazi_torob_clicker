@@ -26,11 +26,18 @@ db_password = os.getenv("DB_PASSWORD")
 db_database = os.getenv("DB_DATABASE")
 
 # Create an SQLAlchemy connection string
-connection_string = f'mysql+mysqlconnector://{db_user}:{db_password}@{db_host}/{db_database}'
+# connection_string = f'mysql+mysqlconnector://{db_user}:{db_password}@{db_host}/{db_database}'
 
 # Create an SQLAlchemy engine
-engine = create_engine(connection_string)
-
+# engine = create_engine(connection_string)
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="123",
+    database="zitazi",
+    unix_socket="/var/run/mysqld/mysqld.sock"  # Adjust this path if needed
+)
+sys.exit()
 df = pd.read_sql('SELECT * FROM torob_products where clickable = 1', engine)
 
 
