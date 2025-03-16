@@ -38,6 +38,7 @@ conn = mysql.connector.connect(
     unix_socket="/var/run/mysqld/mysqld.sock"  # Adjust this path if needed
 )
 df = pd.read_sql('SELECT * FROM torob_products where clickable = 1', conn)
+print(df)
 sys.exit()
 
 
