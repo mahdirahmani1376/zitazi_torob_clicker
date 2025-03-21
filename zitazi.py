@@ -43,20 +43,20 @@ df = pd.read_sql('SELECT * FROM torob_products where clickable = 1', conn)
 # logging configurations
 ########################
 now = datetime.now()
-logFolder = 'logs'
-if not os.path.exists('logs'):
-    os.makedirs(logFolder)
+# logFolder = 'logs'
+# if not os.path.exists('logs'):
+#     os.makedirs(logFolder)
 
 programTimeFormat = now.strftime('%Y-%m-%d-%H-%M-%S')
-logFileName = os.path.join(logFolder, f"{programTimeFormat}.log")
-logging.basicConfig(
-    filename=logFileName,
-    filemode='a',
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d-%H-%M-%S',
-    level=logging.INFO,
-    encoding="UTF-8"
-)
+# logFileName = os.path.join(logFolder, f"{programTimeFormat}.log")
+# logging.basicConfig(
+#     filename=logFileName,
+#     filemode='a',
+#     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+#     datefmt='%Y-%m-%d-%H-%M-%S',
+#     level=logging.INFO,
+#     encoding="UTF-8"
+# )
 ########################
 # configs for chrome driver
 ########################
@@ -80,12 +80,12 @@ for i in df.itertuples():
         with requests.Session() as s:
             driver.get(urlToCLick)
             successfulResponseMessage = f"""
-            successfully visited {urlToCLick} 
-            sleeping for {sleepTime} seconds
+            successfully visited {urlToCLick}
+            time: {now.strftime('%Y-%m-%d-%H-%M-%S')}
             """
             print(successfulResponseMessage)
-            logging.info(successfulResponseMessage)
+#             logging.info(successfulResponseMessage)
             time.sleep(sleepTime)
     except Exception as e:
         print(f"error occurred in program with message: {e}")
-        logging.error("Exception occurred", exc_info=True)
+#         logging.error("Exception occurred", exc_info=True)
