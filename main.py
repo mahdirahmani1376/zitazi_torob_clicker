@@ -1,9 +1,12 @@
-from fastapi import FastAPI
-from selenium import webdriver
-import undetected_chromedriver as uc
-from pydantic import BaseModel
 import time
+import json
+from fastapi import FastAPI
+from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import undetected_chromedriver as uc
 
 app = FastAPI()
 
@@ -24,27 +27,25 @@ async def get_html(data: URLRequest):
     options.add_argument( '--auto-open-devtools-for-tabs' )
 
     try:
-        # Launch the Chrome browser
-        # Launch the Chrome browser
-        driver = uc.Chrome(options=options)
+        driver = uc.Chrome(options=options,driver_executable_path='/usr/local/bin/chromedriver')
 
         url = f"https://api.torob.com/v4/base-product/details/?prk={data.url}"
-        # Fetch the page
-        driver.get(data.url)
-        driver.save_screenshot("screenshot.png")
 
-        # Wait for the page to load (you can adjust the sleep time or use WebDriverWait)
-        time.sleep(5)
+        driver.get(url)
 
-        # Get the page source (HTML content)
-        html_content = driver.page_source
-        data = json.loads(script_content)['products_info']['result']
+        element = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "pre"))
+        )
+
+        script_content = element.get_attribute("innerHTML")
+
+        data = json.loads(script_content)
 
         # Close the driver after fetching content
         driver.quit()
 
         # Return the HTML content as a response
-        return HTMLResponse(content=html_content)
+        return data
 
     except Exception as e:
         return {"error": str(e)}
