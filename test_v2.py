@@ -21,7 +21,9 @@ url = f"https://api.torob.com/v4/base-product/details/?prk=487ca2c3-d85f-4c3a-b3
 
 driver.get(url)
 
-element = WebDriverWait(driver, 20).until(
+html_content = driver.page_source
+print(html_content)
+element = WebDriverWait(driver, 5).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "pre"))
 )
 
