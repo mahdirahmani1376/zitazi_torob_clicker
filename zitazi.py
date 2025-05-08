@@ -62,10 +62,10 @@ programTimeFormat = now.strftime('%Y-%m-%d-%H-%M-%S')
 ########################
 sleepTime = 2
 chromeOptions = Options()
-chromeOptions.add_argument("--headless")  # Run without UI
-chromeOptions.add_argument("--disable-gpu")  # Disable GPU acceleration
-chromeOptions.add_argument("--no-sandbox")  # Required for running as root
-chromeOptions.add_argument("--disable-dev-shm-usage")  # Avoid /dev/shm issues
+# chromeOptions.add_argument("--headless")  # Run without UI
+# chromeOptions.add_argument("--disable-gpu")  # Disable GPU acceleration
+# chromeOptions.add_argument("--no-sandbox")  # Required for running as root
+# chromeOptions.add_argument("--disable-dev-shm-usage")  # Avoid /dev/shm issues
 # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=chromeOptions)
 driver = webdriver.Chrome(service=Service("/usr/local/bin/chromedriver"), options=chromeOptions)
 
