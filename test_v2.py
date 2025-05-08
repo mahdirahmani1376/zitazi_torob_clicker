@@ -13,7 +13,9 @@ options.add_argument("--disable-dev-shm-usage")
 options.add_argument( '--headless' )
 options.add_argument( '--auto-open-devtools-for-tabs' )
 
-driver = uc.Chrome(options=options,driver_executable_path='/usr/local/bin/chromedriver')
+driver = uc.Chrome(options=options,
+# driver_executable_path='/usr/local/bin/chromedriver'
+)
 
 url = f"https://api.torob.com/v4/base-product/details/?prk=487ca2c3-d85f-4c3a-b36e-6734a3b00383"
 
