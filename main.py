@@ -27,7 +27,10 @@ async def get_html(data: URLRequest):
     options.add_argument( '--auto-open-devtools-for-tabs' )
 
     try:
-        driver = uc.Chrome(options=options,driver_executable_path='/usr/local/bin/chromedriver')
+        driver = uc.Chrome(
+        options=options,
+#         driver_executable_path='/usr/local/bin/chromedriver'
+        )
 
         url = f"https://api.torob.com/v4/base-product/details/?prk={data.url}"
 
