@@ -31,6 +31,7 @@ async def get_html(data: URLRequest):
         url = f"https://api.torob.com/v4/base-product/details/?prk={data.url}"
         # Fetch the page
         driver.get(data.url)
+        driver.save_screenshot("screenshot.png")
 
         # Wait for the page to load (you can adjust the sleep time or use WebDriverWait)
         time.sleep(5)
