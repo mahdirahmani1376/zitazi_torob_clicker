@@ -28,11 +28,12 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 }
 
-response = requests.get('http://localhost:80/amazon-list').text
-df = pd.DataFrame(json.loads(response))
+response = requests.get('http://localhost:80/api/amazon-list').text
+df = pd.DataFrame(json.loads(response)['data'])
 for i in df.itertuples():
     try:
-        urlToCLick = i[1]
+        urlToCLick = i[2]
+        id = i[1]
         driver.get(urlToCLick)
 
         WebDriverWait(driver, 20).until(
@@ -49,7 +50,19 @@ for i in df.itertuples():
         if priceElement:
             price = json.loads(priceElement[0].get_attribute('innerHTML'))['desktop_buybox_group_1'][0]['priceAmount']
 
-        print(price, stock)
+        if price is None:
+            stock = 0
+
+        body = {
+            'price' : price,
+            'stock' : stock,
+        }
+
+        headers = {
+            'accept' : 'application/json'
+        }
+
+        responseUpdate = requests.put(f'http://localhost:80/api/variations/{id}/update',params = body , headers = headers)
 
     except Exception as e:
         print(f"error occurred in program with message: {e}")
